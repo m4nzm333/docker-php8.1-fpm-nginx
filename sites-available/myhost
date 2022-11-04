@@ -1,12 +1,12 @@
 server {
   listen 0.0.0.0:80;
-  server_name localhost;
+  server_name ${NGINX_HOST};
 
-  root /var/www/html;
-  index index index.php index.html index.htm;
+  root /var/www/html/;
+  index index.php index.html index.htm;
 
   location / {
-    try_files $uri $uri/index.php;
+    try_files $uri $uri/ /index.php$is_args$args;
   }
 
   location ~ \.php$ {
