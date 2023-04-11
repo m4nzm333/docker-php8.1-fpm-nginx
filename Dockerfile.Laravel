@@ -32,8 +32,12 @@ RUN apt-get -y install gettext-base
 # RUN chmod 777 /run.sh
 # RUN /bin/sh /run.sh
 
-# Enable extension
+# Enable extension MySQL
 RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mysql
+# Enable extension GD
+RUN apt-get install -y libpng-dev
+RUN docker-php-ext-install gd && docker-php-ext-enable gd
+
 
 # Run nginx in background
 CMD php-fpm -F & nginx -g "daemon off;"
