@@ -26,13 +26,17 @@ COPY html/index.php /var/www/html/public/index.php
 # Install gettext-base for envsubt
 RUN apt-get -y install gettext-base
 
+
 # Exec Script for Startup
-COPY script/run.sh /run.sh
-RUN chmod 777 /run.sh
-RUN /bin/sh /run.sh
+# COPY script/run.sh /run.sh
+# RUN chmod 777 /run.sh
+# RUN /bin/sh /run.sh
+
+# Enable extension
+RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mysql
 
 # Run nginx in background
-CMD ["nginx", "-g", "daemon off;"]
+CMD php-fpm -F & nginx -g "daemon off;"
 
 # Port
 EXPOSE 80
