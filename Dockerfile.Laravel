@@ -37,7 +37,9 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mys
 # Enable extension GD
 RUN apt-get install -y libpng-dev
 RUN docker-php-ext-install gd && docker-php-ext-enable gd
-
+# Enable extension zip
+RUN apt-get install -y libzip-dev
+RUN docker-php-ext-install zip && docker-php-ext-enable zip
 
 # Run nginx in background
 CMD php-fpm -F & nginx -g "daemon off;"
